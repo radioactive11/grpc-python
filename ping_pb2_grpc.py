@@ -19,12 +19,23 @@ class PingPongServiceStub(object):
                 request_serializer=ping__pb2.Ping.SerializeToString,
                 response_deserializer=ping__pb2.Pong.FromString,
                 )
+        self.client_stream = channel.stream_unary(
+                '/PingPongService/client_stream',
+                request_serializer=ping__pb2.Ping.SerializeToString,
+                response_deserializer=ping__pb2.NumPings.FromString,
+                )
 
 
 class PingPongServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def ping(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def client_stream(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_PingPongServiceServicer_to_server(servicer, server):
                     servicer.ping,
                     request_deserializer=ping__pb2.Ping.FromString,
                     response_serializer=ping__pb2.Pong.SerializeToString,
+            ),
+            'client_stream': grpc.stream_unary_rpc_method_handler(
+                    servicer.client_stream,
+                    request_deserializer=ping__pb2.Ping.FromString,
+                    response_serializer=ping__pb2.NumPings.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class PingPongService(object):
         return grpc.experimental.unary_unary(request, target, '/PingPongService/ping',
             ping__pb2.Ping.SerializeToString,
             ping__pb2.Pong.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def client_stream(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_unary(request_iterator, target, '/PingPongService/client_stream',
+            ping__pb2.Ping.SerializeToString,
+            ping__pb2.NumPings.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

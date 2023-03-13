@@ -13,17 +13,19 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nping.proto\"\x17\n\x04Ping\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x17\n\x04Pong\x12\x0f\n\x07message\x18\x01 \x01(\t2)\n\x0fPingPongService\x12\x16\n\x04ping\x12\x05.Ping\x1a\x05.Pong\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nping.proto\"\x1d\n\x08NumPings\x12\x11\n\tnum_pings\x18\x01 \x01(\x05\"\x1e\n\x04Ping\x12\x16\n\x0e\x63lient_message\x18\x01 \x01(\t\"\x1e\n\x04Pong\x12\x16\n\x0eserver_message\x18\x01 \x01(\t2P\n\x0fPingPongService\x12\x16\n\x04ping\x12\x05.Ping\x1a\x05.Pong\"\x00\x12%\n\rclient_stream\x12\x05.Ping\x1a\t.NumPings\"\x00(\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ping_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _PING._serialized_start=14
-  _PING._serialized_end=37
-  _PONG._serialized_start=39
-  _PONG._serialized_end=62
-  _PINGPONGSERVICE._serialized_start=64
-  _PINGPONGSERVICE._serialized_end=105
+  _NUMPINGS._serialized_start=14
+  _NUMPINGS._serialized_end=43
+  _PING._serialized_start=45
+  _PING._serialized_end=75
+  _PONG._serialized_start=77
+  _PONG._serialized_end=107
+  _PINGPONGSERVICE._serialized_start=109
+  _PINGPONGSERVICE._serialized_end=189
 # @@protoc_insertion_point(module_scope)

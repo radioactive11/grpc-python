@@ -2,13 +2,19 @@ syntax = "proto3";
 
 service PingPongService {
   rpc ping(Ping) returns(Pong) {}
+  rpc client_stream(stream Ping) returns(NumPings) {}
+}
+
+
+message NumPings {
+  int32 num_pings = 1;
 }
 
 message Ping {
-  string message = 1;
+  string client_message = 1;
 }
 
 message Pong {
-  string message = 1;
+  string server_message = 1;
 }
 

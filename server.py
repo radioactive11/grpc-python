@@ -10,15 +10,19 @@ import ping_pb2_grpc
 
 
 class Listener(ping_pb2_grpc.PingPongServiceServicer):
-    def __init__(self) -> None:
-        super().__init__()
-        self.message = ""
-
     def ping(self, request, context):
-        self.message = request.message
+        self.message = request.client_message
         print(f"Client says: {self.message}")
 
-        return ping_pb2.Pong(message=f"Server said: {self.message}")
+        return ping_pb2.Pong(server_message=f"Server said: {self.message}")
+
+    def client_stream(self, request_iterator, context):
+        self.sum = 0
+        for item in request_iterator:
+            print(f"Client says: {item.client_message}")
+            self.sum += 1
+
+        return ping_pb2.NumPings(num_pings=self.sum)
 
 
 def serve():

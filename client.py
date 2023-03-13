@@ -18,9 +18,9 @@ def run():
         while True:
             try:
                 message = input("Enter message: ")
-                response = stub.ping(ping_pb2.Ping(message=message))
+                response = stub.ping(ping_pb2.Ping(client_message=message))
 
-                message_from_server = response.message
+                message_from_server = response.server_message
                 logger.info(message_from_server)
 
                 time.sleep(0.01)
